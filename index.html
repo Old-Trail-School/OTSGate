@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTS Back Gate Control</title>
+<link rel="stylesheet" href="https://use.typekit.net/jjk0lig.css"> 
+<style>
+  body {
+    font-family: freight-sans-pro, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f7f7f7;
+  }
+  .gate-control {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .live-feed {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  button {
+    font-family: freight-sans-pro, sans-serif;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #275d38;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #275d38c5;
+  }
+</style>
+</head>
+<body>
+<div class="gate-control">
+    <h1>OTS Gate Control</h1>
+    <div class="live-feed">
+        <canvas id="canvas" style="width: 640px; height: 480px">
+        <script src='https://cdn.jsdelivr.net/npm/rtsp-relay@1.9.0/browser/index.js'></script>
+        <script>
+            loadPlayer({
+                url: 'ws://' + location.host + '/api/stream',
+                canvas: document.getElementById('canvas')
+            });
+        </script>
+    
+  </div> 
+  
+  <p></p>
+  <button id="gate-toggle">Open Gate</button>
+  <p><h3>Gate will remain open for ~5 seconds. 
+    <p><a href="http://10.86.128.99/setup.html" target="_blank">To hold open,</a> contact facilities for a schedule change.</p></h3></p>
+</div>
+
+<script> //js for button event handling
+  const gateButton = document.getElementById('gate-toggle');//get the button
+  gateButton.addEventListener('click', function() {//add handler
+    fetch('/button-clicked', { method: 'POST' })//hit the node endpoint
+      .then(response => {
+        if (response.ok)
+        {
+          gateButton.textContent = 'Gate is Moving - Please Wait' ; //Don't really have a way to determine gate status, so just going to change button name and wait a bit 
+          gateButton.disabled=true; //don't want to send >1 open cmd.
+          setTimeout(() => {
+            gateButton.textContent = 'Open Gate' ;
+            gateButton.disabled=false;
+            }, 30000);//Wait 30s, then reset the button
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        gateButton.textContent = 'Unknown Error' ;
+});
+  });
+
+</script>
+</body>
+</html>
