@@ -1,9 +1,0 @@
-FROM node:18-alpine
-WORKDIR /usr/src/app
-COPY pagkage*.json ./
-RUN npm install
-COPY . .
-ENV HOST=localhost
-ENV PORT=9874
-ENV GATE=10.86.128.99
-CMD [ "node", "app.js" ]
