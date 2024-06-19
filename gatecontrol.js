@@ -6,7 +6,7 @@ module.exports = {
       const response = await fetch(`http://${process.env.GateEndpoint}/state.json?relay1=2`, {
           method: 'GET',
           headers: {
-              'Authorization': 'Basic dXNlcjpXM2JSM2xheSE=',
+              'Authorization': process.env.GatePassword,
           }
         });
   } catch (error) {
