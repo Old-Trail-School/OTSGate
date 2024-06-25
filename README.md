@@ -92,15 +92,15 @@ A NodeJS/Express stack to allow for remote opening of the back gate
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`ServerHost`
+`ServerHost` - ip/hostname where the server listens
 
-`ServerPort`
+`ServerPort` - port for the server to listen on
 
-`GateEndpoint`
+`GateEndpoint` - IP address of the webrelay
 
 `GatePassword` - String in form of `"Basic ***"` where *** is the Base64-encoded password of the webrelay.
 
-`StreamURL`
+`StreamURL` - RTSP stream URL. should include user/pass. i.e rtsp://user:password@ipaddress
 
 
 <!-- Getting Started -->

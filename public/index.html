@@ -1,3 +1,4 @@
+<!-- Client-side HTML file -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OTS Back Gate Control</title>
+<!--import client-side logic -->
 <script src="client.js"></script> 
+<!--import rtsp webplayer--there should be some way to do this from the npm package, but I couldn't get it working. -->
 <script src='https://cdn.jsdelivr.net/npm/rtsp-relay@1.9.0/browser/index.js'></script>
 <!-- Import school font -->
 <link rel="stylesheet" href="https://use.typekit.net/jjk0lig.css"> 
@@ -70,6 +73,7 @@
   <button id="gate-toggle">Open Gate</button>
   <p><h3>Gate will remain open for ~5 seconds. 
     <p><a href="http://10.86.128.99/setup.html" target="_blank">To hold open,</a> contact facilities for a schedule change.</p></h3></p>
+    
 </div>
 </body>
 </html>

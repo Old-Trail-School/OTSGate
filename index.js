@@ -1,77 +1,41 @@
 /**
- * A 'simple' nodejs/express app to allow manual opening of the gate
- * 
- * 
+ * Main file/entry point--running as a service should use this file now.
  */
 
 //Variable import and includes
-require("dotenv").config() //import environment vars
-const express = require('express')//webserver
-const app = express();//initialize webserver
-const handler = require('./ipcam')(app);//ipcamera service handler
-const gateControl = require('./gatecontrol'); //gate control service
+require("dotenv").config(); //import environment vars
+const express = require('express');//webserver require
+const app = express();//initialize webserver init
+const handler = require('./ipcam')(app);//import ipcamera services
+const gateControl = require('./gatecontrol'); //import gate services 
+const WebSocket = require('ws'); //may be needed?
 
+//Main entry-point for the app. Hosts all of the public folder.
+app.use(express.static('public'));
 
-// set up  ip cam stream endpoint
+// set up ip cam stream endpoint
 app.ws('/cameraFeed', handler);
 
 //endpoint called when button on webpage is clicked
 app.post('/button-clicked', async (req, res, next) => {
     try {
         result = await gateControl.openGate(req,res);
+        console.log("post result:",result); //debug
         res.send(result);
       } catch (error) {
-        res.send(error);
+        console.log("post eror:",error);
       }    
   });
 
 
-//web page to view the stream
 
-//old method, before js got involved
-// app.get('/', (req, res) =>
-//   res.sendFile("public/index.html",{root: __dirname })
-// );
-app.use(express.static('public'));//serve the public folder
-
-app.get('/state/:id', async (req, res) => {
-    try {
-      const response = await fetch(`http://${GateEndpoint}/state.json`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Basic dXNlcjpXM2JSM2xheSE=',
-            'Accept': 'application/json'
-        }
-      });
-
-      const data = await response.json();
-      const id = req.params.id;
-
-     // const filteredData = data.data.filter(item => item.id === id);
-     switch(id) {
-        case "relay1":
-            res.json(data.relay1);
-          break;
-        case "relay2":
-          // code block
-          res.json(data.relay2);
-          break;
-        case "vin":
-            res.json(data.vin);
-            break;
-        default:
-            res.json(data);
-      }
-     
-
-    } catch (error) {
-      console.error('Error fetching state.json:', error);
-      res.status(500).send('An error occurred while fetching state.json');
-    }
+app.get('/test', async (req, res) => {
+    gateControl.getStatus(req,res)
   });
 
 
 app.listen(process.env.ServerPort,process.env.ServerHost, () => { //start the server
   console.log(`OTSGate Server running at ${process.env.ServerHost}:${process.env.ServerPort}`);
- 
+
+    
 });
