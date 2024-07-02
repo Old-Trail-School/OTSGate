@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="public/favicon.ico" alt="logo" width="200" height="auto" />
+  <img src="https://lh4.googleusercontent.com/lhk-4cc4c6EU23kwecMpiDR3A5PM5I2qeoPQd5-JNKKraWnvTYV4hzL3zlIoyEIsMI_DNSjfDpvq2APl-tzl7_M_IJlUvdjVIkFXS3IZbolMDP3piauInXwudMpTkFt6Kw=w1280" alt="logo" width="200" height="auto" />
   <h1>OTSGate</h1>
   
   <p>
