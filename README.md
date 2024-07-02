@@ -4,10 +4,22 @@
   <h1>OTSGate</h1>
   
   <p>
-    A small stack for remote operation of the back gate
+    A small node.js program to integrate a ControlByWeb relay with Exacqvision NVR
     <!-- Also the culmination of much toil -->
   </p>
-   
+   - [:star2: About the Project](#-star2--about-the-project)
+  * [:camera: Screenshots](#-camera--screenshots)
+  * [:dart: Features](#-dart--features)
+  * [:key: Environment Variables](#-key--environment-variables)
+- [:toolbox: Getting Started](#-toolbox--getting-started)
+  * [:bangbang: Prerequisites](#-bangbang--prerequisites)
+  * [:gear: Installation](#-gear--installation)
+  * [:triangular_flag_on_post: Deployment](#-triangular-flag-on-post--deployment)
+- [:warning: License](#-warning--license)
+- [:handshake: Contact](#-handshake--contact)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 <p>
     <a href="https://github.com/Old-Trail-School/OTSGate/graphs/contributors">
         <img src="https://img.shields.io/github/contributors/Old-Trail-School/OTSGate" alt="contributors" />
@@ -18,7 +30,7 @@
   </a>
 </p>
 <h4>
-    <a href="https://github.com/Old-Trail-School/OTSGate/wiki">Documentation</a>
+    <a href="https://oldtrail.freshdesk.com/a/solutions/articles/69000856624">Documentation</a>
   <span> · </span>
     <a href="https://github.com/Old-Trail-School/OTSGate/issues">Report Bug</a>
 
@@ -26,65 +38,24 @@
 
 <br />
 
-<!-- Table of Contents -->
-# :notebook_with_decorative_cover: Table of Contents
-
-- [:notebook\_with\_decorative\_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
-  - [:star2: About the Project](#star2-about-the-project)
-    - [:camera: Screenshots](#camera-screenshots)
-    - [:space\_invader: Tech Stack](#space_invader-tech-stack)
-    - [:dart: Features](#dart-features)
-    - [:key: Environment Variables](#key-environment-variables)
-  - [:toolbox: Getting Started](#toolbox-getting-started)
-    - [:bangbang: Prerequisites](#bangbang-prerequisites)
-    - [:gear: Installation](#gear-installation)
-    - [:triangular\_flag\_on\_post: Deployment](#triangular_flag_on_post-deployment)
-  - [:eyes: Usage](#eyes-usage)
-  - [:compass: Roadmap](#compass-roadmap)
-  - [:wave: Contributing](#wave-contributing)
-  - [:warning: License](#warning-license)
-  - [:handshake: Contact](#handshake-contact)
-
-  
-
 <!-- About the Project -->
 ## :star2: About the Project
-A NodeJS/Express stack to allow for remote opening of the back gate
+A NodeJS/Express stack to allow for remote opening of the back gate. This facilitates the front desk to operate the gate without needing to give out the code
 
 <!-- Screenshots -->
 ### :camera: Screenshots
 
 <div align="center"> 
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+  <img src="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/69119472327/original/u0GCd42fo9AF5idfmePLLXryjMQaLH0soA.png"
+  alt="screenshot" />
 </div>
 
-
-<!-- TechStack -->
-### :space_invader: Tech Stack
-
-<details>
-  <summary>Client</summary>
-  <ul>
-    <li><a href="https://www.w3.org/html/">HTML</a></li>
-    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Javascript</a></li>
-  </ul>
-</details>
-
-<details>
-  <summary>Server</summary>
-  <ul>
-    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Javascript</a></li>
-    <li><a href="https://nodejs.org">Node.js</a></li>
-    <li><a href="https://expressjs.com/">Express.js</a></li>  
-  </ul>
-</details>
 
 <!-- Features -->
 ### :dart: Features
 
-- Hosts an express web server that serves a control webpage
-- Connects to and exposes RTSP stream from IP camera for display on control webpage
-- Connects to the Controlbyweb webrelay to pulse the relay when the button on the webpage is pressed, and #TODO monitor the state of the gate and update the control button accordingly
+- Hosts an express web server that listens for a POST request from the NVR.
+- when a (correct) POST is received; sends the request to the webrelay
 
 
 <!-- Env Variables -->
@@ -100,8 +71,6 @@ To run this project, you will need to add the following environment variables to
 
 `GatePassword` - String in form of `"Basic ***"` where *** is the Base64-encoded password of the webrelay.
 
-`StreamURL` - RTSP stream URL. should include user/pass. i.e rtsp://user:password@ipaddress
-
 
 <!-- Getting Started -->
 ## 	:toolbox: Getting Started
@@ -109,7 +78,7 @@ To run this project, you will need to add the following environment variables to
 <!-- Prerequisites -->
 ### :bangbang: Prerequisites
 
-This project uses <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">npm</a> as the package manager.
+This project uses <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">npm</a> as the package manager. 
 
 
 <!-- Installation -->
@@ -135,46 +104,14 @@ Install dependencies
 Start the server
 
 ```bash
-  node index.js
+  node gatecontrol.js
 ```
 
 
 <!-- Deployment -->
 ### :triangular_flag_on_post: Deployment
 
-To deploy this project run
-
-##TODO
-
-
-<!-- Usage -->
-## :eyes: Usage
-
-Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
-
-
-##TODO
-
-<!-- Roadmap -->
-## :compass: Roadmap
-
-* [x] Refactor into cleaner files
-* [ ] Read status of gate to live-update button text
-
-
-<!-- Contributing -->
-## :wave: Contributing
-
-<a href="https://github.com/Old-Trail-School/OTSGate/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Old-Trail-School/OTSGate" />
-</a>
-
-
-Contributions are always welcome!
-
-See me for ways to help!
-
-
+The repo also includes install-service.js, and uninstall-service.js. These scripts utilize the node-windows package to install the nodejs application as a Windows service. This is how it should be run in production
 
 <!-- License -->
 ## :warning: License
