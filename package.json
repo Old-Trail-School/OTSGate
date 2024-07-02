@@ -1,0 +1,23 @@
+{
+  "name": "otsgate",
+  "version": "1.0.0",
+  "description": "Webhook listener for gate",
+  "main": "gatecontrol.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Old-Trail-School/OTSGate.git"
+  },
+  "author": "Ben Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Old-Trail-School/OTSGate/issues"
+  },
+  "homepage": "https://github.com/Old-Trail-School/OTSGate#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
