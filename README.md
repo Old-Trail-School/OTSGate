@@ -88,6 +88,10 @@ Install dependencies
   npm install
 ```
 
+Create .env file
+```bash
+  nano .env
+```
 Start the server
 
 ```bash
